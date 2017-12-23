@@ -18,6 +18,26 @@ public class AlgoritimoSimplex {
     
     }
     
+    private void bigM(double[][] in, int linhaFunObj){
+        //construindo o m
+        double m = Double.MAX_VALUE;
+        double numb=0;
+        
+        for(int i=0; i<in.length;i++){
+            numb = in[linhaFunObj][i];
+            //se for variavel artificial recebe o m
+            if(numb==0){
+                in[linhaFunObj][i] += m;
+            }
+        }
+        //Chama a função para fazer a segunda iteração de bigM
+        bigMSegPart(in);
+    }
+    
+    private void bigMSegPart(double[][] in){
+    
+    }
+    
     private void selecionaPivot(double [][] in, int linhaFunObj, int colunaB){
         double menor=0;
         //Não sei se faz sentido mas coloquei zero porque tem que selecionar o numero negativo
