@@ -107,7 +107,10 @@ public class AlgoritimoSimplex {
     //Funcao para fazer aquela parada das linhas que vai fazendo conta com a pivot
     private double[][] interaLinhas(double [][] in, int linhaPivot, int colunaPivot){
         double n=0;
-        for(int i=0; i<in.length;i++){
+        
+        //Se ainda tiver numeros negativos continua a iteração
+        if(confereQuadroOtimo(in)>0){
+            for(int i=0; i<in.length;i++){
             //Numero para calculo da linha
             n=in[i][colunaPivot];
             
@@ -119,8 +122,24 @@ public class AlgoritimoSimplex {
                     in[i][j] -= in[linhaPivot][j];
                 }
             }
+            }
+        }else{
+            System.out.println("O quadro é otimo");
         }
         //retorn o novo quadro
         return in;
+    }
+    
+    private int confereQuadroOtimo(double[][] in){
+        int linhaFuncObj = in.length;
+        //Contador de numeros negativos
+        int qtdNegativo=0;
+        
+        for(int i=0; i<in.length;i++){
+            if(in[linhaFuncObj][i]<0){
+                qtdNegativo++;
+            }
+        }
+        return qtdNegativo++;
     }
 }
