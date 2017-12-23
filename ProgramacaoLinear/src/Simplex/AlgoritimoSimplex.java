@@ -18,24 +18,28 @@ public class AlgoritimoSimplex {
     
     }
     
-    private void bigM(double[][] in, int linhaFunObj){
+    //Tem que informar a quantidade de x e quantidade de folgas que tem para acrescentar direto na artificial
+    private void bigM(double[][] in, int linhaFunObj, int qtdX, int qtdF, int qtdA){
         //construindo o m
         double m = Double.MAX_VALUE;
         double numb=0;
         
-        for(int i=0; i<in.length;i++){
+        //Saber quantas casas vai pular para chegar na artificial
+        int pular = qtdX+qtdF;
+        
+        //saber até onde ir para não fazer nada na coluna B
+        int chegar = pular+qtdA;
+        
+        for(int i=pular; i<=chegar;i++){
             numb = in[linhaFunObj][i];
-            //se for variavel artificial recebe o m
-            if(numb==0){
-                in[linhaFunObj][i] += m;
-            }
+            in[linhaFunObj][i] += m;
         }
         //Chama a função para fazer a segunda iteração de bigM
         bigMSegPart(in);
     }
     
     private void bigMSegPart(double[][] in){
-    
+        
     }
     
     private void selecionaPivot(double [][] in, int linhaFunObj, int colunaB){
