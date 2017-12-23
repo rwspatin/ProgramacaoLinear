@@ -29,17 +29,37 @@ public class AlgoritimoSimplex {
         
         //saber até onde ir para não fazer nada na coluna B
         int chegar = pular+qtdA;
-        
+        //Conta quantos m's existem
+        int contador =0;
         for(int i=pular; i<=chegar;i++){
             numb = in[linhaFunObj][i];
             in[linhaFunObj][i] += m;
+            contador++;
         }
         //Chama a função para fazer a segunda iteração de bigM
-        bigMSegPart(in);
+        bigMSegPart(in,pular,chegar,contador,linhaFunObj);
     }
     
-    private void bigMSegPart(double[][] in){
-        
+    private void bigMSegPart(double[][] in, int pular, int chegar, int qtdM, int linhaFunObj){
+        int num=0;
+        //Vai fazer ate acabar os m's acrescentados
+        for(int i=pular; i<=chegar;i++){
+            //ve em qual linha esta o 1 para fazer aquela conta
+            for(int j=0; i<in.length;j++){
+                //Se acahr a linha que quer pega a posiçõa e sai do for
+                if(in[j][i]==1){
+                    num=j;
+                    break;
+                }
+            }
+            //Faz as contas com as linhas
+            for(int k=0; k<in.length;k++){
+                //a linha na função objetiva vai ser ela menos a linha achada no for anterior
+                in[linhaFunObj][k] -= in[num][k];
+            }
+        }
+        int colunaB = chegar+1;
+        selecionaPivot(in, linhaFunObj,colunaB);
     }
     
     private void selecionaPivot(double [][] in, int linhaFunObj, int colunaB){
