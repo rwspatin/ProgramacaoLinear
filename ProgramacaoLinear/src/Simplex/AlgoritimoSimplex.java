@@ -57,12 +57,26 @@ public class AlgoritimoSimplex {
         for(int i=0; i<in.length;i++){
             in[linhaPivot][i] /= numero;
         }
-        
+        interaLinhas(in, linhaPivot, colunaPivot);
     }
     
     //Funcao para fazer aquela parada das linhas que vai fazendo conta com a pivot
-    private void interaLinhas(int linhaPivot, int colunaPivot){
-        
-    
+    private double[][] interaLinhas(double [][] in, int linhaPivot, int colunaPivot){
+        double n=0;
+        for(int i=0; i<in.length;i++){
+            //Numero para calculo da linha
+            n=in[i][colunaPivot];
+            
+            //Se não for linha pivot pode iterar
+            if(!(i==linhaPivot)){
+                //cada coluna vai fazer uma conta diferente
+                //Não sei de esse length vai funcionar aqui
+                for(int j=0; j<in.length; j++){
+                    in[i][j] -= in[linhaPivot][j];
+                }
+            }
+        }
+        //retorn o novo quadro
+        return in;
     }
 }
