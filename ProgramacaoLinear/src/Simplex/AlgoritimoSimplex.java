@@ -11,7 +11,6 @@ package Simplex;
  */
 public class AlgoritimoSimplex {
     //Simplex Quadro
-    double[][] simp;
     
     
     public AlgoritimoSimplex(){
@@ -20,9 +19,12 @@ public class AlgoritimoSimplex {
     
     //Tem que informar a quantidade de x e quantidade de folgas que tem para acrescentar direto na artificial
     private void bigM(double[][] in, int linhaFunObj, int qtdX, int qtdF, int qtdA){
-        //construindo o m
-        double m = Double.MAX_VALUE;
+        
+        double m = 0;
         double numb=0;
+        
+        //construindo o m
+        m=Double.MAX_VALUE;
         
         //Saber quantas casas vai pular para chegar na artificial
         int pular = qtdX+qtdF;
@@ -64,6 +66,7 @@ public class AlgoritimoSimplex {
     
     private void selecionaPivot(double [][] in, int linhaFunObj, int colunaB){
         double menor=0;
+        double divisao =0;
         //Não sei se faz sentido mas coloquei zero porque tem que selecionar o numero negativo
         int colunaPivot=0, linhaPivot=0;
         
@@ -75,7 +78,7 @@ public class AlgoritimoSimplex {
             }
         }
         
-        double divisao=(in[0][colunaB]/in[0][colunaPivot]);
+        divisao=(in[0][colunaB]/in[0][colunaPivot]);
         double d=0;
         //Seleciona linha pivot
         //length-1 porque não conta a linha da funcao obj
@@ -94,7 +97,8 @@ public class AlgoritimoSimplex {
     
     private void pivot (double [][] in, int linhaPivot, int colunaPivot) {
 	//Pega o numero para dividir as linhas
-        double numero = in[linhaPivot][colunaPivot];
+        double numero = 0;
+        numero=in[linhaPivot][colunaPivot];
         
         //Acho que isso funciona
         //Divide cada coluna da linha pivot pelo numero pivot
@@ -141,5 +145,17 @@ public class AlgoritimoSimplex {
             }
         }
         return qtdNegativo++;
+    }
+    
+    public void imprime(char[][] in){
+        String resultado = " ";
+        for(int i=0;i<in.length;i++){
+            for(int j=0;j<in.length;j++){
+                resultado += in[i][j] + "\n";
+            }
+        }
+        //Coloca o resultado em uma area de texto
+        
+        //txtArea.setText(resultado);
     }
 }
