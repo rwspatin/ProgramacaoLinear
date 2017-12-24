@@ -11,7 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author CARLOS ALEJANDRO
+ * @author rwspa
  */
 public class AlgoritmoTransporte {
 
@@ -19,6 +19,67 @@ public class AlgoritmoTransporte {
     private Double[][] custos;
     private Integer[][] oferta, demanda, unidades;
 
+    
+    //Tem que fazer essa função para recriar o quadro com as penalidades
+    public void criaPenalidades(){
+    
+    }
+    
+    public void criarTabela(JTable restricoes, DefaultTableModel custosModel) {
+        Object[] cabecera = new String[destino + 2];
+        cabecera[0] = " ";
+        cabecera[destino + 1] = "Oferta";
+        int opcao = JOptionPane.showOptionDialog(null, "Deseja Colocar os nomes de origem de destino?\nSim seleciona \"Nao\" será colocado números em seu lugar", "Método de Transporte", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"SIM", "NAO"}, "SIM");
+        if (opcao == 0) {
+            while (custosModel.getRowCount() > 0) {
+                custosModel.removeRow(0);
+            }
+            for (int i = 1; i <= destino; i++) {
+                cabecera[i] = JOptionPane.showInputDialog(null, "Escreva o nome do destino " + (i), JOptionPane.INFORMATION_MESSAGE);
+            }
+            custosModel = new DefaultTableModel(cabecera, 0) {
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 0 || (row == restricoes.getRowCount() - 1 && column == restricoes.getColumnCount() - 1)) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            restricoes.setModel(custosModel);
+            String fila[] = new String[destino + 2];
+            for (int i = 0; i < origem; i++) {
+                fila[0] = JOptionPane.showInputDialog(null, "Escrva o nome da origem " + (i + 1), JOptionPane.INFORMATION_MESSAGE);
+                custosModel.addRow(fila);
+            }
+            fila[0] = "Demanda";
+            custosModel.addRow(fila);
+        } else {
+            while (custosModel.getRowCount() > 0) {
+                custosModel.removeRow(0);
+            }
+            for (int i = 1; i <= destino; i++) {
+                cabecera[i] = new String("Destino " + (i));
+            }
+            custosModel = new DefaultTableModel(cabecera, 0) {
+                public boolean isCellEditable(int row, int column) {
+                    if (column == 0 || (row == restricoes.getRowCount() - 1 && column == restricoes.getColumnCount() - 1)) {
+                        return false;
+                    }
+                    return true;
+                }
+            };
+            restricoes.setModel(custosModel);
+            String fila[] = new String[destino + 2];
+            for (int i = 0; i < origem; i++) {
+                fila[0] = new String("Origem " + (i + 1));
+                custosModel.addRow(fila);
+            }
+            fila[0] = "Demanda";
+            custosModel.addRow(fila);
+        }
+    }
+    
+    
     public Integer getOrigem() {
         return origem;
     }
@@ -86,58 +147,6 @@ public class AlgoritmoTransporte {
         
     }
 
-    public void criarTabela(JTable restricoes, DefaultTableModel custosModel) {
-        Object[] cabecera = new String[destino + 2];
-        cabecera[0] = " ";
-        cabecera[destino + 1] = "Oferta";
-        int opcao = JOptionPane.showOptionDialog(null, "Deseja Colocar os nomes de origem de destino?\nSim seleciona \"Nao\" será colocado números em seu lugar", "Método de Transporte", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, new Object[]{"SIM", "NAO"}, "SIM");
-        if (opcao == 0) {
-            while (custosModel.getRowCount() > 0) {
-                custosModel.removeRow(0);
-            }
-            for (int i = 1; i <= destino; i++) {
-                cabecera[i] = JOptionPane.showInputDialog(null, "Escreva o nome do destino " + (i), JOptionPane.INFORMATION_MESSAGE);
-            }
-            custosModel = new DefaultTableModel(cabecera, 0) {
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 0 || (row == restricoes.getRowCount() - 1 && column == restricoes.getColumnCount() - 1)) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            restricoes.setModel(custosModel);
-            String fila[] = new String[destino + 2];
-            for (int i = 0; i < origem; i++) {
-                fila[0] = JOptionPane.showInputDialog(null, "Escrva o nome da origem " + (i + 1), JOptionPane.INFORMATION_MESSAGE);
-                custosModel.addRow(fila);
-            }
-            fila[0] = "Demanda";
-            custosModel.addRow(fila);
-        } else {
-            while (custosModel.getRowCount() > 0) {
-                custosModel.removeRow(0);
-            }
-            for (int i = 1; i <= destino; i++) {
-                cabecera[i] = new String("Destino " + (i));
-            }
-            custosModel = new DefaultTableModel(cabecera, 0) {
-                public boolean isCellEditable(int row, int column) {
-                    if (column == 0 || (row == restricoes.getRowCount() - 1 && column == restricoes.getColumnCount() - 1)) {
-                        return false;
-                    }
-                    return true;
-                }
-            };
-            restricoes.setModel(custosModel);
-            String fila[] = new String[destino + 2];
-            for (int i = 0; i < origem; i++) {
-                fila[0] = new String("Origem " + (i + 1));
-                custosModel.addRow(fila);
-            }
-            fila[0] = "Demanda";
-            custosModel.addRow(fila);
-        }
-    }
+    
 
 }
