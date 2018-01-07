@@ -7,7 +7,7 @@ package Simplex;
 
 /**
  *
- * @author rwspa
+ * @author Renan Winter Spatin e Nikollas Gabriel Assumpção
  */
 public class AlgoritimoSimplex {
     //Simplex Quadro
@@ -23,6 +23,7 @@ public class AlgoritimoSimplex {
         
         qtdColunas=qtdX+qtdF+qtdA;
         
+        imprime(in);
         bigM(in, linhaFunObj, qtdX, qtdF, qtdA);
     }
     
@@ -47,6 +48,7 @@ public class AlgoritimoSimplex {
             in[linhaFunObj][i] += m;
             contador++;
         }
+        imprime(in);
         //Chama a função para fazer a segunda iteração de bigM
         bigMSegPart(in,pular,chegar,contador,linhaFunObj);
     }
@@ -69,6 +71,7 @@ public class AlgoritimoSimplex {
                 in[linhaFunObj][k] -= in[num][k];
             }
         }
+        imprime(in);
         int colunaB = chegar+1;
         selecionaPivot(in, linhaFunObj,colunaB);
     }
@@ -100,6 +103,7 @@ public class AlgoritimoSimplex {
                 linhaPivot = j;
             }
         }
+        imprime(in);
         //chama a função para terminar o trabalho
         pivot(in, linhaPivot, colunaPivot);
     }
@@ -114,6 +118,7 @@ public class AlgoritimoSimplex {
         for(int i=0; i<in.length;i++){
             in[linhaPivot][i] /= numero;
         }
+        imprime(in);
         interaLinhas(in, linhaPivot, colunaPivot);
     }
     
@@ -139,6 +144,8 @@ public class AlgoritimoSimplex {
         }else{
             System.out.println("O quadro é otimo");
         }
+        
+        imprime(in);
         //retorn o novo quadro
         return in;
     }

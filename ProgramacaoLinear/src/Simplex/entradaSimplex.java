@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 /**
  *
- * @author rwspa
+ * @author Renan Winter Spatin e Nikollas Gabriel Assumpção
  */
 public class entradaSimplex {
     int[][] li;
@@ -35,6 +35,7 @@ public class entradaSimplex {
     //Conta linhas de restriçõe para vetor de restrições
     int linhasRestricao=0;
     
+    
     public void executa(){
         int n=0;
         System.out.println("\n\t\tAlgoritmo Big M");
@@ -44,6 +45,13 @@ public class entradaSimplex {
         System.out.println("Digite o numero de variaveis das retrições: ");
         qtdVariavel= ler.nextInt();                                                 //QTD VAriavel
         
+        int setar = n+1;
+        
+        variaveis = new int[setar][qtdVariavel];
+        simbolo = new String[setar];
+        folga = new int[setar];
+        artificial = new int[setar];
+        b = new int[setar];
         
         for(linhasRestricao=0; linhasRestricao<n;linhasRestricao++){
             int v=0;
@@ -61,11 +69,11 @@ public class entradaSimplex {
             System.out.println("Digite o valor da restrição: ");
             b[linhasRestricao]=l.nextInt();
         }
-        
+        //System.out.println(linhasRestricao);
         System.out.println("Função objetiva");
         for(int k=0;k<qtdVariavel;k++){
             System.out.println("Escreva o "+k+"º valor: ");
-            variaveis[linhasRestricao+1][k] = l.nextInt();
+            variaveis[linhasRestricao][k] = l.nextInt();
         }
         folgaEArtificial();
     }
@@ -76,7 +84,7 @@ public class entradaSimplex {
         for(int i=0;i<linhasRestricao;i++){
             simb=simbolo[i];
             
-            if(simb=="<"){
+            if(simb.equals("<")){
                 folga[i]=1;
                 artificial[i]=0;
                 contador++;
@@ -106,7 +114,10 @@ public class entradaSimplex {
     
     public void preencheQuadro(){
         int tamanho = linhasRestricao+1;
+        int colunas = qtdVariavel+qtdFolga+qtdA+1;
         int posicaoF=0;
+        
+        li = new int[tamanho][colunas];
         
         for(int i=0; i<tamanho;i++){
             for(int j=0;j<qtdVariavel;j++){
