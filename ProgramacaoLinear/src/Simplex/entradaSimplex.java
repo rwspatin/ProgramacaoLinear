@@ -139,12 +139,25 @@ public class entradaSimplex {
                 
                 //somente coloca o numero quando a Artificial for dessa posição, se não fica 0
                 if((qtdVariavel+contador+posicaoF)==w){
-                    li[i][w]=folga[i];
+                    //muda o valor da variavel para negativo
+                    if(folga[i]!=0){
+                        li[i][w]=(-folga[i]);
+                    }else{
+                        li[i][w]=folga[i];
+                    }
+                    
                 }else{
                     li[i][w]=0;
                 }
             }
             
+            
+            int x=0;
+            for(x=0;x<linhasRestricao;x++){
+                li[x][colunas-1]=b[x];
+            }
+            //o encontro de b com a função objetiva recebe 0
+            li[x][colunas-1]=0;
         }
         
         //Chama função do do Algoritmo Simplex

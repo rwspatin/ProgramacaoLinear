@@ -43,7 +43,7 @@ public class AlgoritimoSimplex {
         int chegar = pular+qtdA;
         //Conta quantos m's existem
         int contador =0;
-        for(int i=pular; i<=chegar;i++){
+        for(int i=pular; i<chegar;i++){
             numb = in[linhaFunObj][i];
             in[linhaFunObj][i] += m;
             contador++;
@@ -56,7 +56,7 @@ public class AlgoritimoSimplex {
     private void bigMSegPart(int[][] in, int pular, int chegar, int qtdM, int linhaFunObj){
         int num=0;
         //Vai fazer ate acabar os m's acrescentados
-        for(int i=pular; i<=chegar;i++){
+        for(int i=pular; i<chegar;i++){
             //ve em qual linha esta o 1 para fazer aquela conta
             for(int j=0; i<in.length;j++){
                 //Se acahr a linha que quer pega a posiçõa e sai do for
@@ -79,7 +79,7 @@ public class AlgoritimoSimplex {
     private void selecionaPivot(int [][] in, int linhaFunObj, int colunaB){
         int menor=0;
         int divisao =0;
-        //Não sei se faz sentido mas coloquei zero porque tem que selecionar o numero negativo
+        
         int colunaPivot=0, linhaPivot=0;
         
         //Seleciona coluna privot
@@ -113,7 +113,6 @@ public class AlgoritimoSimplex {
         int numero = 0;
         numero=in[linhaPivot][colunaPivot];
         
-        //Acho que isso funciona
         //Divide cada coluna da linha pivot pelo numero pivot
         for(int i=0; i<in.length;i++){
             in[linhaPivot][i] /= numero;
@@ -135,7 +134,6 @@ public class AlgoritimoSimplex {
             //Se não for linha pivot pode iterar
             if(!(i==linhaPivot)){
                 //cada coluna vai fazer uma conta diferente
-                //Não sei de esse length vai funcionar aqui
                 for(int j=0; j<in.length; j++){
                     in[i][j] -= in[linhaPivot][j];
                 }
