@@ -91,4 +91,11 @@ public class TabelaTransporte {
         return ofertaTotal;
     }
 
+    public Float[] getOfertas() {
+        return ofertas;
+    }
+
+    public Float[] getDemandas() {
+        return demandas;
+    }   
 }
