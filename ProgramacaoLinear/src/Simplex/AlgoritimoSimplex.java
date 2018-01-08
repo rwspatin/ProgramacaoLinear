@@ -21,7 +21,7 @@ public class AlgoritimoSimplex {
     public void resolve(int[][] in, int linhaFunObj, int qtdX, int qtdF, int qtdA){
         System.out.println("\n\t\tBigM");
         
-        qtdColunas=qtdX+qtdF+qtdA;
+        qtdColunas=qtdX+qtdF+qtdA+1;
         
         imprime(in);
         bigM(in, linhaFunObj, qtdX, qtdF, qtdA);
