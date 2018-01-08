@@ -69,6 +69,7 @@ public class entradaSimplex {
             System.out.println("Digite o valor da restrição: ");
             b[linhasRestricao]=l.nextInt();
         }
+        System.out.println(linhasRestricao);
         //System.out.println(linhasRestricao);
         System.out.println("Função objetiva");
         for(int k=0;k<qtdVariavel;k++){
@@ -88,12 +89,12 @@ public class entradaSimplex {
                 folga[i]=1;
                 artificial[i]=0;
                 contador++;
-            }else if(simb==">"){
+            }else if(simb.equals(">")){
                 folga[i]=(0-1);
                 artificial[i]=1;
                 contadorA++;
                 
-            }else if(simb=="="){
+            }else if(simb.equals("=")){
                 folga[i]=0;
                 artificial[i]=1;
                 contadorA++;
@@ -124,7 +125,7 @@ public class entradaSimplex {
                 li[i][j]=variaveis[i][j];
             }
             
-            posicaoF++;
+            
             for(int k=qtdVariavel;k<(qtdVariavel+contador);k++){
                 //somente coloca o numero quando a folga for dessa posição, se não fica 0
                 if((qtdVariavel+posicaoF)==k){
@@ -150,7 +151,7 @@ public class entradaSimplex {
                     li[i][w]=0;
                 }
             }
-            
+            posicaoF++;
             
             int x=0;
             for(x=0;x<linhasRestricao;x++){

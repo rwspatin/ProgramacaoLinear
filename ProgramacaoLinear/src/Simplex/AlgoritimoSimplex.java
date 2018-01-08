@@ -13,6 +13,7 @@ public class AlgoritimoSimplex {
     //Simplex Quadro
     
     int qtdColunas=0;
+    int linhas=0;
     
     public AlgoritimoSimplex(){
     
@@ -22,6 +23,7 @@ public class AlgoritimoSimplex {
         System.out.println("\n\t\tBigM");
         
         qtdColunas=qtdX+qtdF+qtdA+1;
+        linhas=qtdF+2;
         
         imprime(in);
         bigM(in, linhaFunObj, qtdX, qtdF, qtdA);
@@ -123,7 +125,7 @@ public class AlgoritimoSimplex {
     
     //Funcao para fazer aquela parada das linhas que vai fazendo conta com a pivot
     private int[][] interaLinhas(int [][] in, int linhaPivot, int colunaPivot){
-        int n=0;
+           int n=0;
         
         //Se ainda tiver numeros negativos continua a iteração
         if(confereQuadroOtimo(in)>0){
@@ -163,8 +165,8 @@ public class AlgoritimoSimplex {
     
     public void imprime(int[][] in){
         System.out.println("\n\n--------------------------------");
-        for(int i=0;i<in.length;i++){
-            for(int j=0;j<qtdColunas;j++){
+        for(int i=0;i<qtdColunas;i++){
+            for(int j=0;j<linhas;j++){
                 System.out.println(" "+in[i][j]+" ");
             }
         }
