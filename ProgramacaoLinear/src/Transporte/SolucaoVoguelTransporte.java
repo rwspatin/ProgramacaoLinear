@@ -27,8 +27,9 @@ public class SolucaoVoguelTransporte {
             Float oferta = tabela.getOfertas()[coordenadas.get(0)];
             Float demanda = tabela.getDemandas()[(coordenadas.get(1))];
             
-            if(oferta.equals(0) && float){
-            }
+            /*if(oferta.equals(0) && float){
+                
+            }*/
             
             
         }
