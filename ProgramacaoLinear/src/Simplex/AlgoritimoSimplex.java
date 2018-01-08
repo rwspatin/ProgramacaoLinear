@@ -7,24 +7,36 @@ package Simplex;
 
 /**
  *
- * @author rwspa
+ * @author Renan Winter Spatin e Nikollas Gabriel Assumpção
  */
 public class AlgoritimoSimplex {
     //Simplex Quadro
     
+    int qtdColunas=0;
+    int linhas=0;
     
     public AlgoritimoSimplex(){
     
     }
     
-    //Tem que informar a quantidade de x e quantidade de folgas que tem para acrescentar direto na artificial
-    private void bigM(double[][] in, int linhaFunObj, int qtdX, int qtdF, int qtdA){
+    public void resolve(int[][] in, int linhaFunObj, int qtdX, int qtdF, int qtdA){
+        System.out.println("\n\t\tBigM");
         
-        double m = 0;
-        double numb=0;
+        qtdColunas=qtdX+qtdF+qtdA+1;
+        linhas=qtdF+2;
+        
+        imprime(in);
+        bigM(in, linhaFunObj, qtdX, qtdF, qtdA);
+    }
+    
+    //Tem que informar a quantidade de x e quantidade de folgas que tem para acrescentar direto na artificial
+    private void bigM(int[][] in, int linhaFunObj, int qtdX, int qtdF, int qtdA){
+        
+        int m = 0;
+        int numb=0;
         
         //construindo o m
-        m=Double.MAX_VALUE;
+        m=Integer.MAX_VALUE;
         
         //Saber quantas casas vai pular para chegar na artificial
         int pular = qtdX+qtdF;
@@ -33,19 +45,20 @@ public class AlgoritimoSimplex {
         int chegar = pular+qtdA;
         //Conta quantos m's existem
         int contador =0;
-        for(int i=pular; i<=chegar;i++){
+        for(int i=pular; i<chegar;i++){
             numb = in[linhaFunObj][i];
             in[linhaFunObj][i] += m;
             contador++;
         }
+        imprime(in);
         //Chama a função para fazer a segunda iteração de bigM
         bigMSegPart(in,pular,chegar,contador,linhaFunObj);
     }
     
-    private void bigMSegPart(double[][] in, int pular, int chegar, int qtdM, int linhaFunObj){
+    private void bigMSegPart(int[][] in, int pular, int chegar, int qtdM, int linhaFunObj){
         int num=0;
         //Vai fazer ate acabar os m's acrescentados
-        for(int i=pular; i<=chegar;i++){
+        for(int i=pular; i<chegar;i++){
             //ve em qual linha esta o 1 para fazer aquela conta
             for(int j=0; i<in.length;j++){
                 //Se acahr a linha que quer pega a posiçõa e sai do for
@@ -60,14 +73,15 @@ public class AlgoritimoSimplex {
                 in[linhaFunObj][k] -= in[num][k];
             }
         }
+        imprime(in);
         int colunaB = chegar+1;
         selecionaPivot(in, linhaFunObj,colunaB);
     }
     
-    private void selecionaPivot(double [][] in, int linhaFunObj, int colunaB){
-        double menor=0;
-        double divisao =0;
-        //Não sei se faz sentido mas coloquei zero porque tem que selecionar o numero negativo
+    private void selecionaPivot(int [][] in, int linhaFunObj, int colunaB){
+        int menor=0;
+        int divisao =0;
+        
         int colunaPivot=0, linhaPivot=0;
         
         //Seleciona coluna privot
@@ -79,7 +93,7 @@ public class AlgoritimoSimplex {
         }
         
         divisao=(in[0][colunaB]/in[0][colunaPivot]);
-        double d=0;
+        int d=0;
         //Seleciona linha pivot
         //length-1 porque não conta a linha da funcao obj
         for(int j=0; j<(in.length-1);j++){
@@ -91,26 +105,27 @@ public class AlgoritimoSimplex {
                 linhaPivot = j;
             }
         }
+        imprime(in);
         //chama a função para terminar o trabalho
         pivot(in, linhaPivot, colunaPivot);
     }
     
-    private void pivot (double [][] in, int linhaPivot, int colunaPivot) {
+    private void pivot (int [][] in, int linhaPivot, int colunaPivot) {
 	//Pega o numero para dividir as linhas
-        double numero = 0;
+        int numero = 0;
         numero=in[linhaPivot][colunaPivot];
         
-        //Acho que isso funciona
         //Divide cada coluna da linha pivot pelo numero pivot
         for(int i=0; i<in.length;i++){
             in[linhaPivot][i] /= numero;
         }
+        imprime(in);
         interaLinhas(in, linhaPivot, colunaPivot);
     }
     
     //Funcao para fazer aquela parada das linhas que vai fazendo conta com a pivot
-    private double[][] interaLinhas(double [][] in, int linhaPivot, int colunaPivot){
-        double n=0;
+    private int[][] interaLinhas(int [][] in, int linhaPivot, int colunaPivot){
+           int n=0;
         
         //Se ainda tiver numeros negativos continua a iteração
         if(confereQuadroOtimo(in)>0){
@@ -121,7 +136,6 @@ public class AlgoritimoSimplex {
             //Se não for linha pivot pode iterar
             if(!(i==linhaPivot)){
                 //cada coluna vai fazer uma conta diferente
-                //Não sei de esse length vai funcionar aqui
                 for(int j=0; j<in.length; j++){
                     in[i][j] -= in[linhaPivot][j];
                 }
@@ -130,11 +144,13 @@ public class AlgoritimoSimplex {
         }else{
             System.out.println("O quadro é otimo");
         }
+        
+        imprime(in);
         //retorn o novo quadro
         return in;
     }
     
-    private int confereQuadroOtimo(double[][] in){
+    private int confereQuadroOtimo(int[][] in){
         int linhaFuncObj = in.length;
         //Contador de numeros negativos
         int qtdNegativo=0;
@@ -147,15 +163,12 @@ public class AlgoritimoSimplex {
         return qtdNegativo++;
     }
     
-    public void imprime(char[][] in){
-        String resultado = " ";
-        for(int i=0;i<in.length;i++){
-            for(int j=0;j<in.length;j++){
-                resultado += in[i][j] + "\n";
+    public void imprime(int[][] in){
+        System.out.println("\n\n--------------------------------");
+        for(int i=0;i<qtdColunas;i++){
+            for(int j=0;j<linhas;j++){
+                System.out.println(" "+in[i][j]+" ");
             }
         }
-        //Coloca o resultado em uma area de texto
-        
-        //txtArea.setText(resultado);
     }
 }
